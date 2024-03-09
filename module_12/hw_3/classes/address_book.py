@@ -92,7 +92,7 @@ class AddressBook(UserDict):
         if record.name not in self.data:
             self.data[record.name] = record
             print(f'Contact {record.name} added to contacts')
-            save_contacts(self.data)
+            save_contacts(self)
         else:
             print(f'Contact with name {record.name} already exist ')
 
@@ -117,7 +117,7 @@ class AddressBook(UserDict):
 
         for name, record in self.data.items():
             if record.birthday:
-                birthday_this_year = record.birthday.strftime('%d.%m.%Y')  # Convert datetime object to string
+                birthday_this_year = record.birthday.strftime('%d.%m.%Y')  
                 birthday_this_year = datetime.strptime(birthday_this_year, '%d.%m.%Y')
                 birthday_this_year = birthday_this_year.replace(year=today.year)
 
@@ -139,39 +139,4 @@ class AddressBook(UserDict):
 
 
     
-
-# book = AddressBook()
-# john_record = Record("John")
-# john_record.add_phone("1234567890")
-# john_record.add_phone("5555555555")
-# john_record.add_birthday("12.02.1989")
-
-
-# # print(john_record.name)
-# # print(john_record.phones)
-
-# book.add_record(john_record)
-
-
-# jane_record = Record("Jane")
-# jane_record.add_phone("9876543210")
-# jane_record.add_birthday("18.02.1991")
-# book.add_record(jane_record)
-
-# # print(jane_record.name)
-# # print(jane_record.phones)
-
-# for name, record in book.data.items():
-#         print(record)
-
-# john = book.find_record("John")
-# john.edit_phone("1234567890", "1112223333")
-
-# print(john)
-
-# found_phone = john.find_phone("5555555555")
-# print(f"{john.name}: {found_phone}")
-
-# result = book.delete_record("Jane")
-# print(result)
 

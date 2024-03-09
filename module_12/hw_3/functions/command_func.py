@@ -1,5 +1,4 @@
 from classes.address_book import AddressBook, Record
-from functions.load_contacts import load_contacts
 from datetime import datetime
 
 def input_error(func):
@@ -15,7 +14,6 @@ def input_error(func):
     return inner
 
     
-
 @input_error
 def add_contact(args, contacts):
     if len(args) < 2:
@@ -34,8 +32,7 @@ def add_contact(args, contacts):
     else:
         record = Record(name)
         record.add_phone(phone)
-        contacts[name] = record
-        # contacts = load_contacts()
+        contacts.add_record(record)
     return f"Contact added. Name - {name}, phone - {phone}"
 
 
@@ -50,7 +47,6 @@ def change_contact(args, contacts):
         raise ValueError("Phone number should contain only digits.")
     else:
        contacts[name] = new_phone
-    #    contacts = load_contacts()
        return f"Contact updated.Name - {name}, phone - {new_phone}"
   
 
@@ -81,6 +77,7 @@ def show_all(contacts):
         all_contacts.append(formatted_str)
     return all_contacts
 
+
 @input_error
 def add_birthday(args, contacts):
     if len(args) < 2:
@@ -97,7 +94,6 @@ def add_birthday(args, contacts):
     else:
         contact = contacts.get(name)
         contact.add_birthday(birthday)
-        #contacts = load_contacts()
         print(f"Birthday added for {name}.")
     
 
@@ -107,11 +103,11 @@ def show_birthday(args, contacts):
     if name in contacts:
         contact = contacts.get(name)
         birthday = contact.get_birthday()
-        return f"{name}'s birthday on {birthday.strftime('%d.%m.%Y')}."
+        return f"{name}'s birthday on {birthday.strftime('%d.%m.%Y')}."  #birthday.strftime('%d.%m.%Y')
     else:
-        return "Contact not found."
+       raise KeyError('Birthday not found') 
     
-@input_error
+@input_error 
 def birthdays(contacts):
     if not contacts:
         raise IndexError

@@ -7,6 +7,7 @@ from functions.command_func import show_phone
 from functions.command_func import show_birthday
 from functions.command_func import show_all
 from functions.command_func import birthdays
+from functions.load_contacts import load_contacts
 
 
 
@@ -17,7 +18,11 @@ def parse_input(user_input):
 
 
 def main():
-    contacts = AddressBook()
+    loaded_contacts = load_contacts()
+    if loaded_contacts:
+        contacts = loaded_contacts
+    else:
+        contacts = AddressBook()
     while True:
         user_input = input("Enter a command: ")
         command, *args = parse_input(user_input)
