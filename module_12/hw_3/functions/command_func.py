@@ -67,13 +67,17 @@ def show_phone(args, contacts):
 def show_all(contacts):
     if not contacts:
         raise IndexError
+    
     all_contacts = []
+
     for i, (name, record) in enumerate(contacts.items(), start=1):
         phones = record.phones
         birthday = record.birthday
         formatted_str = f'{i:>5}.{name:<5} Phone: {str(phones):>5}'
+
         if birthday:
-            formatted_str += f' Birthday: {birthday:>5}'
+            formatted_str += f' Birthday: {birthday.strftime('%d.%m.%Y'):>5}'
+
         all_contacts.append(formatted_str)
     return all_contacts
 
@@ -103,7 +107,7 @@ def show_birthday(args, contacts):
     if name in contacts:
         contact = contacts.get(name)
         birthday = contact.get_birthday()
-        return f"{name}'s birthday on {birthday}."
+        return f"{name}'s birthday on {birthday.strftime('%d.%m.%Y')}."
     else:
         return "Contact not found."
     
@@ -113,22 +117,14 @@ def birthdays(contacts):
         raise IndexError
     else:
         address_book = AddressBook(contacts)
+    
     birthdays_per_week = address_book.get_birthdays_per_week()
-    birthdays_dict = {key: value for key, value in birthdays_per_week.items()}
-    return birthdays_dict
+    
+    if birthdays_per_week is not None:
+        birthdays_dict = {key: value for key, value in birthdays_per_week.items()}
+        return birthdays_dict
+    
 
 
-# def birthdays(contacts):
-#     if not contacts:
-#         raise IndexError("No contacts provided")
-    
-#     # Assuming AddressBook class has been defined elsewhere
-#     address_book = AddressBook(contacts)
-    
-#     birthdays_per_week = address_book.get_birthdays_per_week()
-    
-#     # Filter out contacts with unspecified birthdays
-#     filtered_birthdays = {contact: dob for contact, dob in birthdays_per_week.items() if dob is not None}
-    
-#     return filtered_birthdays
+
 

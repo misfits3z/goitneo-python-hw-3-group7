@@ -36,10 +36,10 @@ class Birthday(Field):
 
 
 class Record:
-    def __init__(self, name):
+    def __init__(self, name, birthday=None):
         self.name = name
         self.phones = []
-        self.birthday = None
+        self.birthday = birthday
 
     def add_phone(self, phone):
         if phone not in self.phones:
@@ -130,7 +130,7 @@ class AddressBook(UserDict):
         
                 weekday = weekdays[birthday_this_year.weekday()]
                 birthdays[weekday].append(name)
-                return birthdays
+                
         if not birthdays:
             print("No birthdays next week")
         else:
